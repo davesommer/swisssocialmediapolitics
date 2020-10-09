@@ -1,11 +1,12 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
-const cors = require('cors');
-const mongoose = require('mongoose');
 
 require('dotenv').config();
 
+const { bro, adminRouter } = require('./api/admin');
 const politicians = require('./api/politicians');
 
 mongoose.connect(process.env.DATABASE_URL, {
@@ -14,6 +15,8 @@ mongoose.connect(process.env.DATABASE_URL, {
 });
 
 const app = express();
+
+app.use(bro.options.rootPath, adminRouter);
 
 app.use(morgan('common'));
 app.use(helmet());
@@ -30,5 +33,6 @@ app.use('/api/politicians', politicians);
 
 const port = process.env.PORT || 1337;
 app.listen(port, () => {
+  // eslint-disable-next-line
   console.log(`listening on http://localhost:${port}`);
 });

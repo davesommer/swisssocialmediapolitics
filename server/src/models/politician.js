@@ -85,6 +85,5 @@ const politicianSchema = new Schema({
 });
 
 const Politician = mongoose.model('Politician', politicianSchema);
-const SocialMedia = mongoose.model('SocialMedia', socialMediaSchema);
 
 module.exports = Politician;
