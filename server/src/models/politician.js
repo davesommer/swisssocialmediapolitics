@@ -67,10 +67,12 @@ const politicianSchema = new Schema({
     type: String,
     required: true,
   },
-  party: {
-    type: String,
-    required: true,
-  },
+  parties: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Party',
+    },
+  ],
   pictureUrl: {
     type: String,
     required: true,

@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 
 const Politician = require('../models/politician');
 const User = require('../models/user');
+const Party = require('../models/party');
 
 User.countDocuments({ role: 'admin' }, async (err, count) => {
   if (count === 0) {
@@ -67,6 +68,9 @@ const AdminBroOptions = {
     },
     {
       resource: Politician,
+    },
+    {
+      resource: Party,
     },
   ],
   rootPath: '/admin',
