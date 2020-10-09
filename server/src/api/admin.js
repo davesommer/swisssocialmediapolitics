@@ -5,7 +5,17 @@ const bcrypt = require('bcrypt');
 
 const Politician = require('../models/politician');
 const User = require('../models/user');
-const { model } = require('../models/politician');
+
+User.countDocuments({ role: 'admin' }, async (err, count) => {
+  if (count === 0) {
+    const user = new User();
+    user.name = process.env.NAME;
+    user.email = process.env.EMAIL;
+    user.encryptedPassword = await bcrypt.hash(process.env.PASSWORD, 10);
+    user.role = process.env.ROLE;
+    user.save();
+  }
+});
 
 AdminBro.registerAdapter(AdminBroMongoose);
 
