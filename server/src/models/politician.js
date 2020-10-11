@@ -38,6 +38,21 @@ const imageDataSchema = new Schema({
   objects: [String],
 });
 
+const locationSchema = new Schema({
+  latitude: {
+    type: Number,
+    required: true,
+    min: -90,
+    max: 90,
+  },
+  longitude: {
+    type: Number,
+    required: true,
+    min: -180,
+    max: 180,
+  },
+});
+
 const postSchema = new Schema({
   platform: {
     type: String,
@@ -47,6 +62,7 @@ const postSchema = new Schema({
   text: String,
   hastags: [String],
   mentions: [String],
+  location: locationSchema,
   imageData: imageDataSchema,
 });
 
